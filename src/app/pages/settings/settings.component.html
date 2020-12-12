@@ -1,0 +1,168 @@
+<div class="row">
+        <div class="col-md-6">
+          <nb-card>
+            <nb-card-header>Account Information</nb-card-header>
+            <nb-card-body>
+                    <form [formGroup]="productForm" (ngSubmit)="addProduct()">
+
+ 
+
+                 <div class="form-group row">
+                        <label for="inputPassword2" class="label col-sm-3 col-form-label" *ngIf="type==1">Name</label>
+                        <label for="inputPassword2" class="label col-sm-3 col-form-label" *ngIf="type!=1">Store Name</label>
+                    <div class="col-sm-9">
+                    <input type="text" nbInput fullWidth id="inputEmail1" placeholder="Name"  formControlName="store_name">
+                    <div *ngIf="!productForm.controls.store_name.valid && is_submit" class="valid">
+                      Name field is required
+              </div> 
+      
+                </div>
+                  
+                 </div>
+
+                 <div class="form-group row">
+                        <label for="inputPassword2" class="label col-sm-3 col-form-label" >Email</label>
+ 
+                    <div class="col-sm-9">
+                    <input type="text" nbInput fullWidth id="inputEmail1" placeholder="Email"  formControlName="email">
+                    <div *ngIf="!productForm.controls.email.valid && is_submit" class="valid">
+                      Email field is required
+              </div> 
+      
+                </div>
+                  
+                 </div>
+
+                 <div class="form-group row">
+                        <label for="inputPassword2" class="label col-sm-3 col-form-label" >Phone</label>
+ 
+                    <div class="col-sm-9">
+                    <input type="text" nbInput fullWidth id="inputEmail1" placeholder="Phone" formControlName="phone">
+                    <div *ngIf="!productForm.controls.phone.valid && is_submit" class="valid">
+                      Phone field is required
+              </div> 
+      
+                </div>
+                  
+                 </div>
+
+                 <div class="form-group row">
+                        <label for="inputPassword2" class="label col-sm-3 col-form-label" >City</label>
+ 
+                    <div class="col-sm-9">
+                    <input type="text" nbInput fullWidth id="inputEmail1" placeholder="City"  formControlName="city">
+                    <div *ngIf="!productForm.controls.city.valid && is_submit" class="valid">
+                      City field is required
+              </div> 
+      
+                </div>
+                  
+                 </div>
+
+
+                 <div class="form-group row">
+                        <label for="inputPassword2" class="label col-sm-3 col-form-label" >State</label>
+ 
+                    <div class="col-sm-9">
+                    <input type="text" nbInput fullWidth id="inputEmail1" placeholder="State"   formControlName="state">
+                    <div *ngIf="!productForm.controls.state.valid && is_submit" class="valid">
+                      State field is required
+              </div> 
+      
+                </div>
+                  
+                 </div>
+
+
+                 <!-- <div class="form-group row">
+                        <label for="inputPassword2" class="label col-sm-3 col-form-label" >Address</label>
+ 
+                    <div class="col-sm-9">
+                    <input type="text" nbInput fullWidth id="inputEmail1" placeholder="Address"  formControlName="address">
+                    <div *ngIf="!productForm.controls.address.valid && is_submit" class="valid">
+                      Address field is required
+              </div> 
+      
+                </div>                
+                 </div> -->
+
+                 <div class="form-group row">
+                  <label for="Quantity" class="label col-sm-3 col-form-label">Address</label>
+                  <div class="col-sm-9">
+                    <ng4geo-autocomplete [userSettings]="userSettings1"  (componentCallback)="autoCompleteCallback1($event)"></ng4geo-autocomplete><br>
+                    <div *ngIf="!isAddress && is_submit" class="valid">
+                      Address is required
+                  </div>
+                    </div>
+                 </div>
+
+
+                 <div class="form-group row">
+                  <label for="inputPassword2" class="label col-sm-3 col-form-label" >Zip Code</label>
+
+                  <div class="col-sm-9">
+                  <input type="text" nbInput fullWidth id="inputEmail1" placeholder="Zip Code" formControlName="pin">
+                  <div *ngIf="!productForm.controls.pin.valid && is_submit" class="valid">
+                    Zip Code field is required
+                  </div> 
+
+                  </div>                
+                 </div>
+
+                 <div class="form-group row">
+                  <label for="inputPassword2" class="label col-sm-3 col-form-label" >Payfast ID</label>
+
+                  <div class="col-sm-9">
+                  <input type="password" nbInput fullWidth id="inputEmail1" placeholder="Payfast code" formControlName="accountCode">
+                  <div *ngIf="!productForm.controls.accountCode.valid && is_submit" class="valid">
+                    Payfast Code field is required
+                  </div> 
+
+                  </div>                
+                 </div>
+
+
+                 <div class="form-group row">
+                  <label for="inputPassword2" class="label col-sm-3 col-form-label" >Payfast KEY</label>
+
+                  <div class="col-sm-9">
+                  <input type="password" nbInput fullWidth id="inputEmail1" placeholder="Payfast KEY" formControlName="accountKey">
+                  <div *ngIf="!productForm.controls.accountKey.valid && is_submit" class="valid">
+                    Payfast KEY field is required
+                  </div> 
+
+                  </div>                
+                 </div>
+
+
+              <div class="form-group row">
+                    <label for="inputPassword2" class="label col-sm-3 col-form-label">Picture</label>
+                    <div class="col-sm-9">
+                      <input type="file" nbInput fullWidth id="inputPassword2" placeholder="Picture" (change)="preview(file1.files)"  #file1 accept='image/*'>
+                
+            
+              <img src="{{imgURL}}" width="33%" *ngIf="is_pic"/>
+              <img src="{{url}}{{profile.image}}" width="33%" *ngIf="errors.indexOf(profile.image)==-1 && !is_pic"/>
+
+                    </div>
+             </div>
+
+                <div class="form-group row">
+                  <div class="offset-sm-3 col-sm-9">
+                    <button  nbButton status="primary">Update</button>
+                  </div>
+                </div>
+              </form>
+            </nb-card-body>
+          </nb-card>
+        </div>
+      </div>
+
+      <ngx-spinner
+      bdColor="rgba(51,51,51,0.8)"
+      size="medium"
+      color="#9784ed"
+      type="ball-clip-rotate"
+      >
+      <p style="font-size: 20px; color: white">Loading...</p>
+    </ngx-spinner>

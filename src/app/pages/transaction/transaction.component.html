@@ -1,0 +1,78 @@
+<nb-card>
+
+        <nb-card-header>
+                Transactions
+                <!-- <button nbButton  style="float: right; right:0px" (click)="add()">
+                        Add Product  
+                </button>   -->
+               
+        </nb-card-header>
+ 
+        <nb-card-body>
+            
+  
+ 
+<div class="mat-table__wrapper" style="  max-height: 60vh;overflow-y: scroll;"> 
+    
+  
+    <mat-table #table [dataSource]="dataSource" style="width: 130%">  
+
+      <ng-container matColumnDef="price" >
+        <mat-header-cell *matHeaderCellDef  cell_center>
+          <span *ngIf="type==1">Seller</span>
+          <span *ngIf="type!=1">Sn.</span>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element; let i = index"  cell_center>
+          <span *ngIf="type==1">{{element.sellerdInfo.store_name}} </span>
+          <span *ngIf="type!=1">{{i+1}}</span>
+          
+          </mat-cell>
+      </ng-container>
+
+         <ng-container matColumnDef="store_name">
+           <mat-header-cell *matHeaderCellDef  cell_center>Transaction Id</mat-header-cell>
+           <mat-cell *matCellDef="let element"  cell_center> {{element.orderDetails._id}} </mat-cell>
+         </ng-container>
+       <!-- Location Column -->
+         <ng-container matColumnDef="email">
+           <mat-header-cell *matHeaderCellDef  cell_center> Buyer </mat-header-cell>
+           <mat-cell *matCellDef="let element"  cell_center>{{element.userDetails.name}} </mat-cell>
+         </ng-container>
+
+  
+             <!-- Start Time Column -->
+         <ng-container matColumnDef="discount">
+           <mat-header-cell *matHeaderCellDef title  mx-w-100  cell_center>Total amount</mat-header-cell>
+           <mat-cell *matCellDef="let element" title mx-w-100  cell_center> <span class="badge badge-secondary">{{ element.orderDetails.payable_price}}</span> </mat-cell>
+         </ng-container>
+               <!-- Player Joined Column -->
+         <ng-container matColumnDef="discount_type">
+           <mat-header-cell *matHeaderCellDef title cell_center>Your amount</mat-header-cell>
+           <mat-cell *matCellDef="let element" title cell_center><span class="badge badge-secondary">{{element.myAmount}}</span></mat-cell>
+         </ng-container>
+
+ 
+        <!-- Start Time Column -->
+        <ng-container matColumnDef="quantity_type">
+         <mat-header-cell *matHeaderCellDef title  mx-w-100  cell_center>Mode</mat-header-cell>
+         <mat-cell *matCellDef="let element" title mx-w-100  cell_center> 
+          <span *ngIf="element.orderDetails.payment_mode == 'pf'">Online Payment</span>
+          <span *ngIf="element.orderDetails.payment_mode == 'cod'"> Cash On Delivery</span>
+         </mat-cell>
+        </ng-container>
+        <!-- Player Joined Column -->
+        <ng-container matColumnDef="category">
+         <mat-header-cell *matHeaderCellDef title cell_center>  Date </mat-header-cell>
+         <mat-cell *matCellDef="let element" title cell_center>{{element.orderDetails.createdAt | date : 'medium'}}</mat-cell>
+        </ng-container>
+
+    
+
+         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+       </mat-table>
+     </div>
+
+
+        </nb-card-body>
+</nb-card>

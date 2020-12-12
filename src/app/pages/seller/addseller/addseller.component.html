@@ -1,0 +1,115 @@
+<div class="row">
+  <div class="col-md-6">
+    <nb-card>
+      <nb-card-header>Add Seller</nb-card-header>
+      <nb-card-body>
+              <form [formGroup]="productForm" (ngSubmit)="addProduct()">
+
+                <div class="form-group row">
+                  <label for="inputEmail1" class="label col-sm-3 col-form-label">Store Name</label>
+                  <div class="col-sm-9">
+                  <input type="text" nbInput fullWidth id="inputEmail1" placeholder="Store Name" formControlName="store_name">
+                  <div *ngIf="!productForm.controls.store_name.valid && is_submit" class="valid">
+                    Store Name field is required
+                  </div>   
+              </div>
+                
+               </div>
+
+           <div class="form-group row">
+              <label for="inputEmail1" class="label col-sm-3 col-form-label">Email</label>
+              <div class="col-sm-9">
+              <input type="email" nbInput fullWidth id="inputEmail1" placeholder="email" formControlName="email">
+              <div *ngIf="!productForm.controls.email.valid && is_submit" class="valid">
+                Email field is required
+              </div>   
+          </div>
+            
+           </div>
+
+           <div class="form-group row">
+                  <label for="price" class="label col-sm-3 col-form-label">Phone</label>
+                  <div class="col-sm-9">
+                  <input type="number" nbInput fullWidth id="price" placeholder="Phone" formControlName="phone">
+                  <div *ngIf="!productForm.controls.phone.valid && is_submit" class="valid">
+                    Phone field is required
+                    </div>
+                  </div>
+          </div>
+           
+ 
+ 
+    
+      <div class="form-group row">
+        <label for="price" class="label col-sm-3 col-form-label">Password</label>
+        <div class="col-sm-9">
+        <input type="text" nbInput fullWidth id="price" placeholder="Password" formControlName="password">
+        <div *ngIf="!productForm.controls.password.valid && is_submit" class="valid">
+              Password field is required
+          </div>
+        </div>
+      </div>
+
+          <div class="form-group row">
+                  <label for="Quantity" class="label col-sm-3 col-form-label">Address</label>
+                  <div class="col-sm-9">
+                    <ng4geo-autocomplete (componentCallback)="autoCompleteCallback1($event)"></ng4geo-autocomplete><br>
+                    <div *ngIf="!is_pic && is_submit" class="valid">
+                      Address is required
+                  </div>
+                    </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="price" class="label col-sm-3 col-form-label">City</label>
+            <div class="col-sm-9">
+            <input type="text" nbInput fullWidth id="price" placeholder="City" formControlName="city">
+            <div *ngIf="!productForm.controls.city.valid && is_submit" class="valid">
+                 City field is required
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="price" class="label col-sm-3 col-form-label">State</label>
+            <div class="col-sm-9">
+            <input type="text" nbInput fullWidth id="price" placeholder="State" formControlName="state">
+            <div *ngIf="!productForm.controls.state.valid && is_submit" class="valid">
+              State field is required
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="price" class="label col-sm-3 col-form-label">Pin</label>
+            <div class="col-sm-9">
+            <input type="text" nbInput fullWidth id="price" placeholder="Pin" formControlName="pin">
+            <div *ngIf="!productForm.controls.pin.valid && is_submit" class="valid">
+              Pin field is required
+              </div>
+            </div>
+          </div>
+ 
+
+          <div class="form-group row">
+            <div class="offset-sm-3 col-sm-9">
+              <button type="submit" nbButton status="primary">ADD</button>
+            </div>
+          </div>
+        </form>
+      </nb-card-body>
+    </nb-card>
+
+ 
+  </div>
+
+</div>
+
+<ngx-spinner
+bdColor="rgba(51,51,51,0.8)"
+size="medium"
+color="#9784ed"
+type="ball-clip-rotate"
+>
+<p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>

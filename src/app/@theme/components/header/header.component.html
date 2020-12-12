@@ -1,0 +1,26 @@
+<div class="header-container">
+  <div class="logo-container">
+    <a (click)="toggleSidebar()" href="#" class="sidebar-toggle">
+      <nb-icon icon="menu-2-outline"></nb-icon>
+    </a>
+    <a class="logo" href="#" (click)="navigateHome()">
+      <!-- <img src="assets/logo/logo.png" width="47%;"> -->
+    </a>
+   
+  </div>
+  <h5 style="margin-top: 12px;margin-top: 12px;margin-left: -81px;">Crunch Time</h5>
+ 
+</div>
+
+<div class="header-container">
+  <nb-actions size="small">
+
+    <nb-action class="control-item" icon="arrow-circle-up-outline" (click)="logout()"  nbTooltip="Logout" nbTooltipPlacement="top"></nb-action>
+    <nb-action class="user-action" *nbIsGranted="['view', 'user']" >
+      <nb-user [onlyPicture]="userPictureOnly"
+               [name]="name"
+               [picture]="pic">
+      </nb-user>
+    </nb-action>
+  </nb-actions>
+</div>

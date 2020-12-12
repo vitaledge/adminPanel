@@ -1,0 +1,116 @@
+<nb-card>
+
+        <nb-card-header>
+                Products
+                <button nbButton  style="float: right; right:0px" (click)="add()">
+                        Add Product  
+                </button>  
+               
+        </nb-card-header>
+ 
+        <nb-card-body>
+            
+  
+ 
+<div class="mat-table__wrapper" style=" max-height: 60vh;overflow-y: scroll;"> 
+    
+  
+    <mat-table #table [dataSource]="dataSource">  
+      
+         
+         <ng-container matColumnDef="store_name">
+           <mat-header-cell *matHeaderCellDef  cell_center>Store Name</mat-header-cell>
+           <mat-cell *matCellDef="let element"  cell_center> {{element.store_name}} </mat-cell>
+         </ng-container>
+       <!-- Location Column -->
+         <ng-container matColumnDef="email">
+           <mat-header-cell *matHeaderCellDef  cell_center> Product Name </mat-header-cell>
+           <mat-cell *matCellDef="let element"  cell_center>{{element.name}} </mat-cell>
+         </ng-container>
+
+         <ng-container matColumnDef="price">
+           <mat-header-cell *matHeaderCellDef  cell_center>Price</mat-header-cell>
+           <mat-cell *matCellDef="let element"  cell_center> {{element.price}}</mat-cell>
+         </ng-container>
+             <!-- Start Time Column -->
+         <ng-container matColumnDef="discount">
+           <mat-header-cell *matHeaderCellDef title  mx-w-100  cell_center>Discount</mat-header-cell>
+           <mat-cell *matCellDef="let element" title mx-w-100  cell_center> <span class="badge badge-secondary">{{ element.discount}}</span> </mat-cell>
+         </ng-container>
+               <!-- Player Joined Column -->
+         <ng-container matColumnDef="discount_type">
+           <mat-header-cell *matHeaderCellDef title cell_center>  Discount Type </mat-header-cell>
+           <mat-cell *matCellDef="let element" title cell_center>
+             <span *ngIf="element.discount_type==1"> %</span>
+             <span *ngIf="element.discount_type==2"> Rand</span>
+            
+            </mat-cell>
+         </ng-container>
+
+        <ng-container matColumnDef="quantity">
+         <mat-header-cell *matHeaderCellDef  cell_center>Quantity </mat-header-cell>
+         <mat-cell *matCellDef="let element"  cell_center> {{element.quantity}}</mat-cell>
+        </ng-container>
+        <!-- Start Time Column -->
+        <ng-container matColumnDef="quantity_type">
+         <mat-header-cell *matHeaderCellDef title  mx-w-100  cell_center>Quantity Type</mat-header-cell>
+         <mat-cell *matCellDef="let element" title mx-w-100  cell_center> <span class="badge badge-secondary">
+            <span *ngIf="element.quantity_type==1"> Litre</span>
+            <span *ngIf="element.quantity_type==2"> KG</span>
+            <span *ngIf="element.quantity_type==3"> Gram</span>
+          
+          </span> </mat-cell>
+        </ng-container>
+        <!-- Player Joined Column -->
+        <ng-container matColumnDef="category">
+         <mat-header-cell *matHeaderCellDef title cell_center>  Category </mat-header-cell>
+         <mat-cell *matCellDef="let element" title cell_center>
+           
+           <span *ngIf="element.category==1"> Veg</span>
+           <span *ngIf="element.category==2"> Non-Veg</span>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="in_stock">
+                <mat-header-cell *matHeaderCellDef title cell_center>In Stock </mat-header-cell>
+                <mat-cell *matCellDef="let element" title cell_center>{{element.in_stock}}</mat-cell>
+        </ng-container>
+
+         
+        
+         <ng-container matColumnDef="action">
+           <mat-header-cell *matHeaderCellDef  cell_center pr-2> Action </mat-header-cell>
+           <mat-cell *matCellDef="let element; let i=index"  cell_center pr-2>
+            <!-- <button nbButton [size]="'small'"  (click)="add()">
+            Edit 
+            </button> -->
+            <button nbButton [size]="'small'" routerLink="/pages/editproduct/{{element._id}}">
+                Edit  
+                </button>
+
+            <button nbButton [size]="'small'" (click)="delete(element._id, i)">
+            Delete  
+            </button>
+
+
+            
+               </mat-cell>
+         </ng-container>
+
+         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+       </mat-table>
+     </div>
+
+
+        </nb-card-body>
+</nb-card>
+
+<ngx-spinner
+bdColor="rgba(51,51,51,0.8)"
+size="medium"
+color="#9784ed"
+type="ball-clip-rotate"
+>
+<p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>

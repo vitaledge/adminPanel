@@ -1,0 +1,179 @@
+
+ <div class="jumbotron">
+<div class="row w-100">
+        <div class="col-md-3"  *ngIf="type==1" (click)="navigate('/pages/buyer')">
+            <div class="card   mx-sm-1 p-3" >
+                <div class="card   shadow text-info p-3 my-card" ><span class="fa fa-user" aria-hidden="true"></span></div>
+                <div class="  text-center mt-3"><h4>Buyers</h4></div>
+                <div class="  text-center mt-2"><h1>{{buyers}}</h1></div>
+            </div>
+        </div>
+        <div class="col-md-3" *ngIf="type==1">
+            <div class="card  mx-sm-1 p-3"    (click)="navigate('/pages/seller')">
+                <div class="card   shadow text-success p-3 my-card"><span class="fa fa-bullhorn" aria-hidden="true"></span></div>
+                <div class="  text-center mt-3"><h4>Sellers</h4></div>
+                <div class="  text-center mt-2"><h1>{{sellers}}</h1></div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card   mx-sm-1 p-3"   (click)="navigate('/pages/product')">
+                <div class="card   shadow text-danger p-3 my-card" ><span class="fa fa-birthday-cake" aria-hidden="true"></span></div>
+                <div class="  text-center mt-3"><h4>Products</h4></div>
+                <div class="  text-center mt-2"><h1>{{products}}</h1></div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card   mx-sm-1 p-3"   (click)="navigate('/pages/order')">
+                <div class="card   shadow text-warning p-3 my-card" ><span class="fa fa-car" aria-hidden="true"></span></div>
+                <div class="  text-center mt-3"><h4>Orders</h4></div>
+                <div class="  text-center mt-2"><h1>{{orders}}</h1></div>
+            </div>
+        </div>
+     </div>
+</div>
+ 
+
+
+<nb-card>
+
+    <nb-card-header>
+        Latest Products
+            <button nbButton  style="float: right; right:0px" (click)="navigate('/pages/addproduct')">
+                    Add Product  
+            </button>  
+           
+    </nb-card-header>
+
+    <nb-card-body>
+        
+
+
+<div class="mat-table__wrapper"> 
+
+
+<mat-table #table [dataSource]="dataSource">  
+  
+     
+  <ng-container matColumnDef="store_name">
+    <mat-header-cell *matHeaderCellDef  cell_center>Store Name</mat-header-cell>
+    <mat-cell *matCellDef="let element"  cell_center> {{element.store_name}} </mat-cell>
+  </ng-container>
+<!-- Location Column -->
+  <ng-container matColumnDef="email">
+    <mat-header-cell *matHeaderCellDef  cell_center> Product Name </mat-header-cell>
+    <mat-cell *matCellDef="let element"  cell_center>{{element.name}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="price">
+    <mat-header-cell *matHeaderCellDef  cell_center>Price</mat-header-cell>
+    <mat-cell *matCellDef="let element"  cell_center> {{element.price}}</mat-cell>
+  </ng-container>
+      <!-- Start Time Column -->
+  <ng-container matColumnDef="discount">
+    <mat-header-cell *matHeaderCellDef title  mx-w-100  cell_center>Discount</mat-header-cell>
+    <mat-cell *matCellDef="let element" title mx-w-100  cell_center> <span class="badge badge-secondary">{{ element.discount}}</span> </mat-cell>
+  </ng-container>
+        <!-- Player Joined Column -->
+  <ng-container matColumnDef="discount_type">
+    <mat-header-cell *matHeaderCellDef title cell_center>  Discount Type </mat-header-cell>
+    <mat-cell *matCellDef="let element" title cell_center>
+      <span *ngIf="element.discount_type==1"> %</span>
+      <span *ngIf="element.discount_type==2"> Rand</span>
+     
+     </mat-cell>
+  </ng-container>
+
+ <ng-container matColumnDef="quantity">
+  <mat-header-cell *matHeaderCellDef  cell_center>Quantity </mat-header-cell>
+  <mat-cell *matCellDef="let element"  cell_center> {{element.quantity}}</mat-cell>
+ </ng-container>
+ <!-- Start Time Column -->
+ <ng-container matColumnDef="quantity_type">
+  <mat-header-cell *matHeaderCellDef title  mx-w-100  cell_center>Quantity Type</mat-header-cell>
+  <mat-cell *matCellDef="let element" title mx-w-100  cell_center> <span class="badge badge-secondary">
+     <span *ngIf="element.quantity_type==1"> Litre</span>
+     <span *ngIf="element.quantity_type==2"> KG</span>
+     <span *ngIf="element.quantity_type==3"> Gram</span>
+   
+   </span> </mat-cell>
+ </ng-container>
+ <!-- Player Joined Column -->
+ <ng-container matColumnDef="category">
+  <mat-header-cell *matHeaderCellDef title cell_center>  Category </mat-header-cell>
+  <mat-cell *matCellDef="let element" title cell_center>
+    
+    <span *ngIf="element.category==1"> Veg</span>
+    <span *ngIf="element.category==2"> Non-Veg</span>
+   </mat-cell>
+ </ng-container>
+
+ <ng-container matColumnDef="in_stock">
+         <mat-header-cell *matHeaderCellDef title cell_center>In Stock </mat-header-cell>
+         <mat-cell *matCellDef="let element" title cell_center>{{element.in_stock}}</mat-cell>
+ </ng-container>
+
+     
+     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+   </mat-table>
+ </div>
+
+
+    </nb-card-body>
+</nb-card>
+
+
+
+<nb-card *ngIf="type==1">
+
+    <nb-card-header>
+            Latest Buyers
+            <button nbButton  style="float: right; right:0px" (click)="navigate('/pages/buyer')">
+                    Add Buyers  
+            </button>  
+           
+    </nb-card-header>
+
+    <nb-card-body>
+        
+
+
+<div class="mat-table__wrapper"> 
+
+
+<mat-table #table [dataSource]="dataSource1">  
+  
+     
+     <ng-container matColumnDef="name">
+       <mat-header-cell *matHeaderCellDef  cell_center>Name</mat-header-cell>
+       <mat-cell *matCellDef="let element"  cell_center> {{element.name}} </mat-cell>
+     </ng-container>
+   <!-- Location Column -->
+     <ng-container matColumnDef="email">
+       <mat-header-cell *matHeaderCellDef  cell_center> Email </mat-header-cell>
+       <mat-cell *matCellDef="let element"  cell_center>{{element.email}} </mat-cell>
+     </ng-container>
+
+     <ng-container matColumnDef="phone">
+       <mat-header-cell *matHeaderCellDef  cell_center>Phone</mat-header-cell>
+       <mat-cell *matCellDef="let element"  cell_center> {{element.phone}}</mat-cell>
+     </ng-container>
+         <!-- Start Time Column -->
+     <ng-container matColumnDef="orders">
+       <mat-header-cell *matHeaderCellDef title  mx-w-100  cell_center>Orders</mat-header-cell>
+       <mat-cell *matCellDef="let element" title mx-w-100  cell_center> <span class="badge badge-secondary">0</span> </mat-cell>
+     </ng-container>
+           <!-- Player Joined Column -->
+     <ng-container matColumnDef="status">
+       <mat-header-cell *matHeaderCellDef title cell_center>Status</mat-header-cell>
+       <mat-cell *matCellDef="let element" title cell_center>{{element.status}}</mat-cell>
+     </ng-container>
+
+     <mat-header-row *matHeaderRowDef="displayedColumns1"></mat-header-row>
+     <mat-row *matRowDef="let row; columns: displayedColumns1;"></mat-row>
+   </mat-table>
+ </div>
+
+
+    </nb-card-body>
+</nb-card>

@@ -1,0 +1,93 @@
+<div class="row">
+    <div class="col-md-6">
+      <nb-card>
+        <nb-card-header>Add Extras</nb-card-header>
+        <nb-card-body>
+                <form [formGroup]="productForm" (ngSubmit)="addProduct()">
+
+
+
+                <div class="form-group row" *ngIf="type==1">
+                  <label for="inputPassword2" class="label col-sm-3 col-form-label">Seller</label>
+                  <div class="col-sm-9">
+                          <nb-select selected="1" formControlName="seller"  fullWidth>
+                                  <nb-option value="{{item._id}}" *ngFor="let item of sellers">{{item.store_name}}</nb-option>
+                               
+                          </nb-select>
+                      <div *ngIf="!productForm.controls.seller.valid && is_submit" class="valid">
+                              Seller field is required
+                      </div>
+                  </div>
+                </div>
+
+
+  
+                  <div class="form-group row">
+                    <label for="inputEmail1" class="label col-sm-3 col-form-label">Name</label>
+                    <div class="col-sm-9">
+                    <input type="text" nbInput fullWidth id="inputEmail1" placeholder="Name" formControlName="name">
+                    <div *ngIf="!productForm.controls.name.valid && is_submit" class="valid">
+                      Name field is required
+                    </div>   
+                </div>
+                 </div>
+ 
+  
+             <div class="form-group row">
+                    <label for="price" class="label col-sm-3 col-form-label">Description</label>
+                    <div class="col-sm-9">
+                    <input type="text" nbInput fullWidth id="price" placeholder="Description" formControlName="description">
+                    <div *ngIf="!productForm.controls.description.valid && is_submit" class="valid">
+                        Description field is required
+                      </div>
+                    </div>
+            </div>
+             
+   
+   
+      
+        <div class="form-group row">
+          <label for="price" class="label col-sm-3 col-form-label">Price</label>
+          <div class="col-sm-9">
+          <input type="number" nbInput fullWidth id="price" placeholder="Price" formControlName="price">
+          <div *ngIf="!productForm.controls.price.valid && is_submit" class="valid">
+             Price field is required
+            </div>
+          </div>
+        </div>
+  
+            <div class="form-group row">
+                <label for="Picture" class="label col-sm-3 col-form-label">Picture</label>
+                <div class="col-sm-9">
+                  <input type="file" nbInput fullWidth id="Picture" placeholder="Picture" (change)="preview(file1.files)"  #file1 accept='image/*'>
+                  <div *ngIf="!is_pic && is_submit" class="valid">
+                       Picture is required
+                  </div>
+        
+                  <img src="{{imgURL}}" width="33%"/>
+                </div>
+        </div>
+   
+  
+            <div class="form-group row">
+              <div class="offset-sm-3 col-sm-9">
+                <button type="submit" nbButton status="primary">ADD</button>
+              </div>
+            </div>
+          </form>
+        </nb-card-body>
+      </nb-card>
+  
+   
+    </div>
+  
+  </div>
+  
+  <ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#9784ed"
+  type="ball-clip-rotate"
+  >
+  <p style="font-size: 20px; color: white">Loading...</p>
+  </ngx-spinner>

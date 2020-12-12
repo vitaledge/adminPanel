@@ -1,0 +1,163 @@
+<div class="row">
+    <div class="col-md-6">
+      <nb-card>
+        <nb-card-header>Order Info</nb-card-header>
+        <nb-card-body>
+                
+                  <div class="form-group row">
+                    <label for="inputEmail1" class="label col-sm-3 col-form-label">Items</label>
+                    <div class="col-sm-9">
+                    <p *ngFor="let item of orderDetails?.cart_items">{{item.quantity}} {{item.title}} <br></p>
+                 
+                    </div>
+                 </div>
+
+                 <div class="form-group row">
+                  <label for="inputEmail1" class="label col-sm-3 col-form-label">Extras</label>
+                  <div class="col-sm-9">
+                  <p *ngFor="let item of extras">{{item.quantity}} {{item.title}} <br></p>
+               
+                  </div>
+               </div>
+
+  
+             <div class="form-group row">
+                <label for="inputEmail1" class="label col-sm-3 col-form-label">Payment Mode</label>
+                <div class="col-sm-9">
+             <p *ngIf="orderDetails?.payment_mode=='pf'">Online Payment</p>  
+             <p *ngIf="orderDetails?.payment_mode=='cod'">Cash On delivery</p>  
+            </div>
+              
+             </div>
+  
+             <div class="form-group row">
+                    <label for="price" class="label col-sm-3 col-form-label">Total Price</label>
+                    <div class="col-sm-9">
+                        <p> R{{orderDetails?.payable_price}}</p>  
+                
+                    </div>
+            </div>
+
+
+            <div class="form-group row">
+                <label for="price" class="label col-sm-3 col-form-label">Delivery Address</label>
+                <div class="col-sm-9">
+                    <p> {{orderDetails?.address}}</p>  
+            
+                </div>
+        </div>
+             
+   
+   
+      
+            <div class="form-group row">
+                <label for="price" class="label col-sm-3 col-form-label">Order Date & Time</label>
+                <div class="col-sm-9">
+                    <p> {{orderDetails?.createdAt | date: 'medium'}}</p>  
+            
+                </div>
+        </div>
+        </nb-card-body>
+      </nb-card>
+  
+      <nb-card>
+        <nb-card-header>Buyer Info</nb-card-header>
+        <nb-card-body>
+                
+                  <div class="form-group row">
+                    <label for="inputEmail1" class="label col-sm-3 col-form-label">Name</label>
+                    <div class="col-sm-9">
+                    <p>{{userDetails?.name}}</p>
+                 
+                    </div>
+                 </div>
+  
+             <div class="form-group row">
+                <label for="inputEmail1" class="label col-sm-3 col-form-label">Phone</label>
+                <div class="col-sm-9">
+                    <p>{{userDetails?.phone}}</p> 
+            </div>
+              
+             </div>
+  
+             <div class="form-group row">
+                    <label for="price" class="label col-sm-3 col-form-label">Email</label>
+                    <div class="col-sm-9">
+                        <p> {{userDetails?.email}}</p>  
+                
+                    </div>
+            </div>
+                          
+        </nb-card-body>
+      </nb-card>
+
+
+   
+    </div>
+
+    <nb-card class="right" style="width: 40%;"> 
+      <nb-card-header>Manage Action <span class="orderStatus"> Order Status: {{statusName}}</span></nb-card-header>
+      <nb-card-body>
+        <form [formGroup]="productForm" (ngSubmit)="updateOrder()">
+      <div class="form-group row">
+        <label for="inputPassword2" class="label col-sm-3 col-form-label">Status</label>
+        <div class="col-sm-9">
+                <nb-select   fullWidth placeholder="Order Status" formControlName="statusOrder"  (selectedChange)='onOptionsSelected($event)' placeholder="{{statusName}}">
+                        <nb-option value="1">Delivered</nb-option>
+                        <nb-option value="2">Being Processed</nb-option>
+                        <nb-option value="3">On its way</nb-option>
+                        <nb-option value="4">Cancel</nb-option>
+                        <nb-option value="5">Arrived</nb-option>
+                        <nb-option value="6">Accept</nb-option>
+                        <nb-option value="7">Reject</nb-option>
+
+                </nb-select>
+                <div *ngIf="!productForm.controls.statusOrder.valid && is_submit" class="valid">
+                 Please choose status of order
+              </div>
+ 
+        </div>
+      </div>
+
+        <div class="form-group row" *ngIf="!cancel">
+          <label for="inputPassword2" class="label col-sm-3 col-form-label">Driver</label>
+          <div class="col-sm-9">
+                  <nb-select   fullWidth placeholder="Select Driver" formControlName="driverAssign" >
+                          <nb-option value="{{item._id}}" *ngFor="let item of allDrivers">{{item.name}}</nb-option>
+                  </nb-select>
+
+                  <div *ngIf="!productForm.controls.driverAssign.valid && is_submit" class="valid">
+                    Please choose a driver
+                </div>
+   
+          </div>
+        </div>
+
+
+          <div class="form-group row">
+            <div class="offset-sm-3 col-sm-9">
+              <button type="submit" nbButton status="primary">UPDATE</button>
+            </div>
+          </div>
+        </form>        
+      </nb-card-body>
+    </nb-card>
+
+    <!-- <nb-card class="right" style="width: 40%;" *ngIf="status!=0"> 
+      <nb-card-header>Driver Asigned, <span class="orderStatus"> Order Status: {{statusName}}</span></nb-card-header>
+      <nb-card-body>
+       Driver Name: {{driverDetails?.name}}   
+      </nb-card-body>
+    </nb-card> -->
+  
+  </div>
+  
+  <ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#9784ed"
+  type="ball-clip-rotate"
+  >
+  <p style="font-size: 20px; color: white">Loading...</p>
+  </ngx-spinner>
+

@@ -1,0 +1,190 @@
+<div class="row">
+        <div class="col-md-6">
+          <nb-card>
+            <nb-card-header>Add Product</nb-card-header>
+            <nb-card-body>
+                    <span  *ngFor="let formKey of forms; let i = index">
+
+                <nb-card-header style="margin-left: -25px;">Product {{i+1}}</nb-card-header>
+
+
+                <div class="form-group row" *ngIf="type==1">
+                        <label for="inputPassword2" class="label col-sm-3 col-form-label">Seller</label>
+                        <div class="col-sm-9">
+                                <nb-select selected="1" [(ngModel)]="formKey.seller"  fullWidth>
+                                        <nb-option value="{{item._id}}" *ngFor="let item of sellers">{{item.store_name}}</nb-option>
+                                     
+                                </nb-select>
+                            <div *ngIf="errors.indexOf(formKey.seller) >= 0 && is_submit" class="valid">
+                                    Seller field is required
+                            </div>
+                        </div>
+                </div>
+    
+                 <div class="form-group row">
+                    <label for="inputEmail1" class="label col-sm-3 col-form-label">Name</label>
+                    <div class="col-sm-9">
+                    <input type="text" nbInput fullWidth id="inputEmail1" placeholder="Name" [(ngModel)]="formKey.name">
+                    <div *ngIf="errors.indexOf(formKey.name) >= 0 && is_submit" class="valid">
+                            Name field is required
+                    </div>   
+                </div>
+                  
+                 </div>
+    
+                 <div class="form-group row">
+                        <label for="inputEmail1" class="label col-sm-3 col-form-label">Description</label>
+                        <div class="col-sm-9">
+                        <input type="text" nbInput fullWidth id="inputEmail1" placeholder="Description" [(ngModel)]="formKey.description">
+                        <div *ngIf="errors.indexOf(formKey.description) >= 0 && is_submit" class="valid">
+                                Description field is required
+                        </div>   
+                    </div>
+                      
+                     </div>
+    
+                 <div class="form-group row">
+                        <label for="price" class="label col-sm-3 col-form-label">Price</label>
+                        <div class="col-sm-9">
+                        <input type="number" nbInput fullWidth id="price" placeholder="Price" [(ngModel)]="formKey.price">
+                        <div *ngIf="errors.indexOf(formKey.price) >= 0 && is_submit" class="valid">
+                                Price field is required
+                          </div>
+                        </div>
+                </div>
+                 
+    
+                <div class="form-group row">
+                        <label for="inputPassword2" class="label col-sm-3 col-form-label" placeholder="Select Discount Type">Discount Type</label>
+                        <div class="col-sm-9">
+                                <nb-select selected="1" [(ngModel)]="formKey.discount_type">
+                                        <nb-option value="1">%</nb-option>
+                                        <nb-option value="2">Rand</nb-option>
+                              </nb-select>
+                              <div *ngIf="errors.indexOf(formKey.discount_type) >= 0 && is_submit" class="valid">
+                                    Discount Type field is required
+                              </div>
+                        </div>
+                </div>
+    
+    
+                <div class="form-group row">
+                  <label for="discount" class="label col-sm-3 col-form-label">Discount</label>
+                  <div class="col-sm-9">
+                    <input type="number" nbInput fullWidth id="discount" placeholder="0" [(ngModel)]="formKey.discount" value="0">
+                    <div *ngIf="errors.indexOf(formKey.discount) >= 0 && is_submit" class="valid">
+                            Discount field is required
+                      </div>
+                  </div>
+                </div>
+    
+              
+                <div class="form-group row">
+                        <label for="inputPassword2" class="label col-sm-3 col-form-label" placeholder="Select Quantity Type">Quantity Type</label>
+                        <div class="col-sm-9">
+                                <nb-select selected="1" [(ngModel)]="formKey.quantity_type">
+                                        <nb-option value="1">Litre</nb-option>
+                                        <nb-option value="2">KG</nb-option>
+                                        <nb-option value="3">Gram</nb-option>
+                                      </nb-select>
+                        <!-- <div *ngIf="errors.indexOf(formKey.quantity_type) >= 0 && is_submit" class="valid">
+                                Quantity Type field is required
+                        </div> -->
+                        </div>
+                </div>
+    
+                <div class="form-group row">
+                        <label for="Quantity" class="label col-sm-3 col-form-label">Quantity</label>
+                        <div class="col-sm-9">
+                          <input type="number" nbInput fullWidth id="Quantity" placeholder="Quantity" [(ngModel)]="formKey.quantity">
+                          <!-- <div *ngIf="errors.indexOf(formKey.quantity) >= 0  && is_submit" class="valid">
+                                Quantity field is required
+                          </div> -->
+                        </div>
+                </div>
+    
+    
+                <div class="form-group row">
+                        <label for="inputPassword2" class="label col-sm-3 col-form-label">Veg/Non-veg</label>
+                        <div class="col-sm-9">
+                                <nb-select selected="1" [(ngModel)]="formKey.category" placeholder="Choose Veg/Non-veg">
+                                        <nb-option value="1">Veg</nb-option>
+                                        <nb-option value="2">Non-Veg</nb-option>
+                               </nb-select>
+                               <div *ngIf="errors.indexOf(formKey.category) >= 0 && is_submit" class="valid">
+                                Veg/Non-veg field is required
+                              </div>
+                        </div>
+                </div>
+    
+    
+                <div class="form-group row">
+                        <label for="inputPassword2" class="label col-sm-3 col-form-label">Category</label>
+                        <div class="col-sm-9">
+                                <nb-select selected="1" [(ngModel)]="formKey.categories" placeholder="Choose Category">
+                                        <nb-option value="1">Pizzas</nb-option>
+                                        <nb-option value="2">Breakfast</nb-option>
+                                        <nb-option value="3">Lunch</nb-option>
+                                        <nb-option value="4">Dinner</nb-option>
+                                        <nb-option value="5">Butcheries</nb-option>
+                                        <nb-option value="6">Disert</nb-option>
+                                        <nb-option value="7">Motor Spares</nb-option>
+                                        <nb-option value="8">Vegetarian</nb-option>
+                                        <nb-option value="9">Vegan</nb-option>
+                               </nb-select>
+                               <div *ngIf="errors.indexOf(formKey.categories) >= 0 && is_submit" class="valid">
+                                Category field is required
+                              </div>
+                        </div>
+                </div>
+    
+    
+                <div class="form-group row">
+                        <label for="in_stock" class="label col-sm-3 col-form-label">In Stock</label>
+                        <div class="col-sm-9">
+                          <input type="number" nbInput fullWidth id="in_stock" placeholder="In Stock" [(ngModel)]="formKey.in_stock">
+                          <div *ngIf="errors.indexOf(formKey.in_stock) >= 0 && is_submit" class="valid">
+                                In Stock field is required
+                          </div>
+                        </div>
+                </div>
+    
+              <div class="form-group row">
+                    <label for="Picture" class="label col-sm-3 col-form-label">Picture</label>
+                    <div class="col-sm-9">
+                      <input type="file" nbInput fullWidth id="Picture" placeholder="Picture" (change)="preview(file1.files, i)"  #file1 accept='image/*'>
+                      <div *ngIf="errors.indexOf(formKey.imgURL) >= 0 && is_submit" class="valid">
+                           Picture is required
+                      </div>
+            
+                      <img [src]="photoURL(formKey.imgURL)" width="33%"/>
+                    </div>
+                 </div>
+                <hr>
+        </span>
+ 
+                <div class="form-group row">
+                  <div class="offset-sm-3 col-sm-9">
+                    <button type="submit" nbButton status="primary" (click)="addMore()" style="margin-right: 10px;">
+                        <nb-icon icon="plus-square-outline"></nb-icon>
+                    </button>
+                    <button type="submit" nbButton status="primary" (click)="addProduct()">ADD</button>
+                  </div>
+                </div>
+            
+            </nb-card-body>
+          </nb-card>
+      
+       
+        </div>
+    
+      </div>
+
+      <ngx-spinner
+      bdColor="rgba(51,51,51,0.8)"
+      size="medium"
+      color="#9784ed"
+      type="ball-clip-rotate"
+      >
+      <p style="font-size: 20px; color: white">Loading...</p>
+    </ngx-spinner>

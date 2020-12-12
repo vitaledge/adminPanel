@@ -1,0 +1,273 @@
+<nb-card>
+
+  <nb-card-header>
+          Orders
+    
+         
+  </nb-card-header>
+
+
+
+  
+
+  <nb-card-body>
+
+    <div fxLayout fxLayoutAlign="center center">
+       
+        <!-- <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter" style="border: none;
+        border-bottom: 1px solid #efbd26;
+        outline: none;"> -->
+
+        <button nbButton  (click)="filter()">
+           Filter
+        </button>  
+
+        <button nbButton  (click)="reset()" style="margin-left: 10px;">
+          Reset
+       </button>  
+
+  <br><br>
+     
+    </div>
+
+
+      
+
+
+<div class="mat-table__wrapper" style="overflow-y: scroll;  max-height: 60vh;"> 
+
+<mat-table #table [dataSource]="dataSource" style="width: 310%;">  
+
+  <ng-container matColumnDef="OrderNumber" >
+
+    <mat-header-cell *matHeaderCellDef  cell_center>
+     <input type="text" placeholder="Order Number" [(ngModel)]="orderNumber">
+    </mat-header-cell>
+
+    <mat-cell *matCellDef="let element; let i = index"  cell_center>
+      {{element._id}}
+      </mat-cell>
+  </ng-container>
+
+
+  <ng-container matColumnDef="stars" >
+    <mat-header-cell *matHeaderCellDef  cell_center>
+       <input type="text" placeholder="Rating" [(ngModel)]="rating">
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element; let i = index"  cell_center>
+      <span *ngIf="errors.indexOf(element.rating)==-1"> 
+        <ngx-stars [readonly]="true" [initialStars]="element.rating"></ngx-stars>
+      </span>
+      <span *ngIf="errors.indexOf(element.rating)>=0">Pending </span>
+      
+      </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="tip" >
+    <mat-header-cell *matHeaderCellDef  cell_center>
+       <input type="text" placeholder="Tip" [(ngModel)]="tip">
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element; let i = index"  cell_center>
+      <span *ngIf="errors.indexOf(element.tip)==-1"> 
+        <span class="badge badge-secondary">{{element.tip}}</span>
+      </span>
+      <span *ngIf="errors.indexOf(element.tip)>=0">Pending </span>
+      
+      </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="store" >
+    <mat-header-cell *matHeaderCellDef  cell_center>
+      <span *ngIf="type==1">
+      
+        <select  [(ngModel)]="storeName">
+          <option value="storeName">Seller</option>
+       
+          <option value="{{item._id}}" *ngFor="let item of sellers">{{item.store_name}}</option>
+         
+        </select>
+      
+      
+      
+      </span>
+      <span *ngIf="type!=1">Sn.</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element; let i = index"  cell_center>
+      <span *ngIf="type==1">{{element.StoreInfo.store_name}} </span>
+      <span *ngIf="type!=1">{{i+1}}</span>
+      
+      </mat-cell>
+  </ng-container>
+
+
+  <ng-container matColumnDef="status">
+    <mat-header-cell *matHeaderCellDef  cell_center>  
+      
+
+      <select  [(ngModel)]="status">
+        <option value="status">Status</option>
+        <option value="0">Pending</option>
+        <option value="1">Delivered</option>
+        <option value="2">Being Processed</option>
+        <option value="3">On its way</option>
+        <option value="4">Cancelled</option>
+        <option value="5">Arrived</option>
+        <option value="6">Accept</option>
+        <option value="7">Rejected</option>
+      </select>
+    
+    
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element"  cell_center> 
+      <span class="badge badge-secondary">
+        <span *ngIf="element.delivery_status=='0'">Pending</span> 
+        <span *ngIf="element.delivery_status=='1'">Delivered</span> 
+        <span *ngIf="element.delivery_status=='2'">Being Processed</span> 
+        <span *ngIf="element.delivery_status=='3'">On its way</span> 
+        <span *ngIf="element.delivery_status=='4'">Cancelled</span> 
+        <span *ngIf="element.delivery_status=='5'">Arrived</span> 
+        <span *ngIf="element.delivery_status=='6'">Accept</span>  
+        <span *ngIf="element.delivery_status=='7'">Rejected</span> 
+      </span> 
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="orderMode">
+    <mat-header-cell *matHeaderCellDef  cell_center>
+
+      <select  [(ngModel)]="orderMode">
+        <option value="orderMode">Order Mode</option>
+        <option value="2">Pre Order</option>
+        <option value="1">Instant</option>
+  
+      </select>
+      
+    
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element"  cell_center> 
+      <span *ngIf="element.orderMode=='2'"> 
+        <span class="badge badge-secondary">Pre Order</span>
+      </span>  
+      <span *ngIf="element.orderMode=='1'"> 
+        <span class="badge badge-secondary">Instant</span>
+      </span>  
+    
+    
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="placedDateTime">
+    <mat-header-cell *matHeaderCellDef  cell_center> <input type="text" placeholder="Order Placed At" [(ngModel)]="placedAt"></mat-header-cell>
+    <mat-cell *matCellDef="let element"  cell_center> {{element.createdAt | date : 'medium'}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="date">
+    <mat-header-cell *matHeaderCellDef  cell_center><input type="text" placeholder="Pre order Date" [(ngModel)]="preOrderDate"> </mat-header-cell>
+    <mat-cell *matCellDef="let element"  cell_center> {{element.orderDate}} </mat-cell>
+  </ng-container>
+
+
+  <ng-container matColumnDef="time">
+    <mat-header-cell *matHeaderCellDef  cell_center> <input type="text" placeholder="Pre order Time" [(ngModel)]="preOrderTime"> </mat-header-cell>
+    <mat-cell *matCellDef="let element"  cell_center> 
+      <span *ngIf="element.orderMode=='2'"> 
+        <span class="badge badge-secondary">{{element.orderTime}}</span>
+      </span>  
+ 
+    
+    
+    </mat-cell>
+  </ng-container>
+
+
+   
+   <ng-container matColumnDef="store_name">
+     <mat-header-cell *matHeaderCellDef  cell_center><input type="text" placeholder="Buyer Name" [(ngModel)]="storeNamee"> </mat-header-cell>
+     <mat-cell *matCellDef="let element"  cell_center> {{element.sellerinfo.name}} </mat-cell>
+   </ng-container>
+ <!-- Location Column -->
+   <ng-container matColumnDef="email">
+     <mat-header-cell *matHeaderCellDef  cell_center>  <input type="text" placeholder="Address" [(ngModel)]="address"> </mat-header-cell>
+     <mat-cell *matCellDef="let element"  cell_center> {{element.address}} </mat-cell>
+   </ng-container>
+
+   <ng-container matColumnDef="price">
+     <mat-header-cell *matHeaderCellDef  cell_center>
+      <select  [(ngModel)]="driver">
+        <option value="Driver">Driver</option>
+        <option value="1">Assigned</option>
+        <option value="0">Not Assigned</option>
+      </select> </mat-header-cell>
+
+
+
+     <mat-cell *matCellDef="let element"  cell_center> 
+       <img src="{{picUrl}}{{element.driverInfo.image}}" width="30%" class="driverAvtar" *ngIf="errors.indexOf(element.driverInfo)==-1">
+      <span *ngIf="errors.indexOf(element.driverInfo)>=0">Driver not assigned</span>
+     </mat-cell>
+   </ng-container>
+
+
+       <!-- Start Time Column -->
+   <ng-container matColumnDef="discount">
+     <mat-header-cell *matHeaderCellDef title  mx-w-100  cell_center><input type="text" placeholder="Amount" [(ngModel)]="amount">  </mat-header-cell>
+     <mat-cell *matCellDef="let element" title mx-w-100  cell_center> <span class="badge badge-secondary">{{element.payable_price}}</span> </mat-cell>
+   </ng-container>
+         <!-- Player Joined Column -->
+   <ng-container matColumnDef="discount_type">
+     <mat-header-cell *matHeaderCellDef title cell_center>
+      
+      <select name="cars" id="cars"  [(ngModel)]="pm">
+        <option value="pm">Payment Mode</option>
+        <option value="pf">online payment</option>
+        <option value="cod">Cash on delivery</option>
+      </select>
+
+    </mat-header-cell>
+     
+    
+     <mat-cell *matCellDef="let element" title cell_center>
+       <span *ngIf="element.payment_mode=='pf'">Online Payment</span>
+       <span *ngIf="element.payment_mode=='cod'"> Cash On Delivery</span>
+      
+      </mat-cell>
+   </ng-container>
+
+ 
+
+   <ng-container matColumnDef="action">
+     <mat-header-cell *matHeaderCellDef  cell_center pr-2> Action </mat-header-cell>
+     <mat-cell *matCellDef="let element; let i=index"  cell_center pr-2>
+      <!-- <button nbButton [size]="'small'"  (click)="add()">
+      Edit 
+      </button> -->
+      <button nbButton [size]="'small'" (click)="manage(element._id)">
+          Manage Order  
+          </button>
+
+      <!-- <button nbButton [size]="'small'" (click)="delete(element._id, i)">
+      Delete  
+      </button> -->
+
+
+      
+         </mat-cell>
+   </ng-container>
+
+   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+   <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+ </mat-table>
+</div>
+
+
+  </nb-card-body>
+</nb-card>
+
+<ngx-spinner
+bdColor="rgba(51,51,51,0.8)"
+size="medium"
+color="#9784ed"
+type="ball-clip-rotate"
+>
+<p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
